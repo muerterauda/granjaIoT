@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block head %}
+<meta charset="UTF-8">
+<title>Aplicacion</title>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+{% endblock %}
+
+{% block content %}
+
+</head>
+<body>
+<div class="container-fluid">
+    <hr>
+    <div class="container-header text-center"><h3><b>Flask Google</b></h3></div>
+    <hr>
+    <div class="row flex-x1-nowrap text-center" style="margin-bottom: 10px;">
+        <div class="offset-lg-3 col-lg-6 col-md-8">
+            <div class="card">
+                <div class="card-header text-white bg-dark"><b>Card predefinida</b></div>
+                <div class="card-body" style="font-size: large;">
+                    Plantilla
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include "footer.html" %}
+</body>
+{% endblock %}
