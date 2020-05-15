@@ -30,7 +30,6 @@ class MongoManager:
             return str(s)
         return s.__str__
 
-
 class MongoException(Exception):
     pass
 
