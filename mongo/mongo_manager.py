@@ -9,8 +9,8 @@ class MongoManager:
         Crea la instancia conectada a la collecion en cuestion.
         :param collection_name: nombre de la conexion
         """
-        username = 'cienciaDatos'
-        password = 'anserju'
+        username = ''
+        password = ''
         if online:
             self.collection = MongoClient('')[
                 ''][collection_name]
