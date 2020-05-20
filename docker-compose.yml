@@ -1,0 +1,12 @@
+version: "3"
+services:
+ web:
+  image: muerterauda/granjaiot:latest
+  deploy:
+   replicas: 1
+   restart_policy:
+    condition: on-failure
+  ports:
+   - "5000:80"
+  networks:
+   - webnet
