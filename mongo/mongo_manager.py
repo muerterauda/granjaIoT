@@ -12,8 +12,8 @@ class MongoManager:
         username = ''
         password = ''
         if online:
-            self.collection = MongoClient('')[
-                ''][collection_name]
+            self.collection =MongoClient("mongodb+srv://<username>:<password>@practicaseguridad-0rfcm.gcp.mongodb.net/test?retryWrites=true&w=majority")[
+                'granjaIoT'][collection_name]
         else:
             self.collection = \
                 MongoClient('mongodb://%s:%s@localhost:27017' % (username, password), authSource='')[
@@ -38,4 +38,4 @@ class MongoException(Exception):
     Conexiones
 '''
 
-usuario_coleccion = MongoManager('usuario', False).collection
+usuario_coleccion = MongoManager('medidas', True).collection
