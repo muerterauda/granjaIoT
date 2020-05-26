@@ -9,10 +9,11 @@ class MongoManager:
         Crea la instancia conectada a la collecion en cuestion.
         :param collection_name: nombre de la conexion
         """
-        username = ''
-        password = ''
+        username = 'granjaIoT'
+        password = 'anserju'
         if online:
-            self.collection =MongoClient("mongodb+srv://<username>:<password>@practicaseguridad-0rfcm.gcp.mongodb.net/test?retryWrites=true&w=majority")[
+            self.collection = MongoClient(
+                "mongodb+srv://"+username+":"+password+"@practicaseguridad-0rfcm.gcp.mongodb.net/test?retryWrites=true&w=majority")[
                 'granjaIoT'][collection_name]
         else:
             self.collection = \
@@ -30,6 +31,7 @@ class MongoManager:
             return str(s)
         return s.__str__
 
+
 class MongoException(Exception):
     pass
 
@@ -38,4 +40,4 @@ class MongoException(Exception):
     Conexiones
 '''
 
-usuario_coleccion = MongoManager('medidas', True).collection
+granja_colection = MongoManager('medidas', True).collection
