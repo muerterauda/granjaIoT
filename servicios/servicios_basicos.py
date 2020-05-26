@@ -1,9 +1,9 @@
-from flask import Blueprint
-from flask_login import login_required
+from flask import Blueprint, request
 
-servicios_basicos_bp = Blueprint('medidores_granja', __name__, template_folder='templates')
+granja_bp = Blueprint('medidores_granja', __name__, template_folder='templates')
 
 
-@servicios_basicos_bp.route("/fake", methods=['GET'])
+@granja_bp.route("/prueba", methods=['GET'])
 def metodo_prueba():
+    dato = request.args.get("dato")
     return "Si"

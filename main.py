@@ -2,6 +2,8 @@ import os
 
 from flask import Flask, send_from_directory, render_template
 
+from servicios.servicios_basicos import granja_bp
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 """APP creation and configuration"""
@@ -26,6 +28,8 @@ def send_img(path):
 def index():
     return render_template("inicio.html")
 
+
+app.register_blueprint(granja_bp, url_prefix="/granjaIoT/")
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
