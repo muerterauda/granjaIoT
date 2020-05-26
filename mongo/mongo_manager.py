@@ -12,7 +12,8 @@ class MongoManager:
         username = ''
         password = ''
         if online:
-            self.collection =MongoClient("mongodb+srv://<username>:<password>@practicaseguridad-0rfcm.gcp.mongodb.net/test?retryWrites=true&w=majority")[
+            self.collection = MongoClient(
+                "mongodb+srv://<username>:<password>@practicaseguridad-0rfcm.gcp.mongodb.net/test?retryWrites=true&w=majority")[
                 'granjaIoT'][collection_name]
         else:
             self.collection = \
@@ -29,6 +30,7 @@ class MongoManager:
         if type(s) == ObjectId:
             return str(s)
         return s.__str__
+
 
 class MongoException(Exception):
     pass
