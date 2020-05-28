@@ -10,6 +10,7 @@ def metodo_prueba():
     granja_colection.insert({"dato": dato})
     return render_template("inicio.html")
 
+
 @granja_bp.route("/prueba2", methods=['GET'])
 def metodo_prueba2():
     dato = request.args.get("dato")
