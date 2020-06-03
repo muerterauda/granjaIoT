@@ -10,6 +10,7 @@ class Medicion:
         self.humedad = humedad
         self.comida = comida
         self.agua = agua
+
         self.animales = animales
         self.fecha = fecha
 

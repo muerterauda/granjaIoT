@@ -12,14 +12,27 @@
 <body>
 <div class="container-fluid">
     <hr>
-    <div class="container-header text-center"><h3><b>Medidas recibidas Prueba</b></h3></div>
+    <div class="container-header text-center"><h3><b>Medidas recibidas</b></h3></div>
     <hr>
     <div class="row flex-x1-nowrap text-center" style="margin-bottom: 10px;">
         <div class="offset-lg-3 col-lg-6 col-md-8">
             <div class="card">
-                <div class="card-header text-white bg-dark"><b>Card predefinida</b></div>
+                <div class="card-header text-white bg-dark"><b>Estado actual de la granja</b></div>
                 <div class="card-body" style="font-size: large;">
-                    Plantilla
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <b>Animales vivos: 100</b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="offset-2 col-4">
+                            <div id="chart_div_temp"></div>
+                        </div>
+                        <div class="offset-1 col-4">
+                            <div id="chart_div2_hum"></div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -27,4 +40,54 @@
 </div>
 
 </body>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+   <script type="text/javascript">
+      google.charts.load('current', {'packages':['gauge']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        let dataTemperatura = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Temperatura', 20]
+        ]);
+        let dataHumedad = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Humedad', 80]
+        ]);
+
+        let optionsTemperatura = {min: -20, max: 60,
+          width: 400, height: 200,
+          redFrom: 50, redTo: 100,
+          yellowFrom:30, yellowTo: 50,
+          minorTicks: 5
+        };
+
+        let optionsHumedad = {min: 0, max: 100,
+          width: 400, height: 200,
+          redFrom: 90, redTo: 100,
+          yellowFrom:60, yellowTo: 90,
+          minorTicks: 5
+        };
+
+        let chart = new google.visualization.Gauge(document.getElementById('chart_div_temp'));
+        let chart2 = new google.visualization.Gauge(document.getElementById('chart_div2_hum'));
+
+        chart.draw(dataTemperatura, optionsTemperatura);
+        chart2.draw(dataHumedad, optionsHumedad);
+
+        setInterval(function() {
+          dataTemperatura.setValue(0, 1, 40 + Math.round(60 * Math.random()));
+          chart.draw(dataTemperatura, optionsTemperatura);
+        }, 1300);
+
+        setInterval(function() {
+          dataHumedad.setValue(0, 1, 40 + Math.round(60 * Math.random()));
+          chart2.draw(dataHumedad, optionsHumedad);
+        }, 1300);
+      }
+    </script>
 {% endblock %}
