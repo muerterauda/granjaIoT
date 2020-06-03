@@ -36,3 +36,4 @@ if __name__ == '__main__':
     # Engine, a webserver process such as Gunicorn will serve the app. This
     # can be configured by adding an `entrypoint` to app.yaml.
     app.run(ssl_context='adhoc', host='0.0.0.0', port=443)
+    #app.run(ssl_context='adhoc', host='localhost', port=5000)
