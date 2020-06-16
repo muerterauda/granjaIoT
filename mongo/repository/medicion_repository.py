@@ -6,5 +6,9 @@ def insert(m: Medicion):
     granja_colection.insert(m.get_dict())
 
 
-def get_last():
-    return granja_colection.find_one(sort=[("fecha", -1)])
+def get_last(i: int = 1):
+    medidas = granja_colection.find(sort=[("fecha", -1)]).limit(i)
+    m = []
+    for x in medidas:
+        m.append(Medicion.generar_medida(x))
+    return m

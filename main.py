@@ -3,6 +3,7 @@ import os
 from flask import Flask, send_from_directory, render_template
 
 from servicios.servicios_basicos import granja_bp
+from mongo.repository import medicion_repository
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -26,7 +27,8 @@ def send_img(path):
 
 @app.route('/')
 def index():
-    return render_template("inicio.html")
+    m_utlimo = medicion_repository.get_last()[0]
+    return render_template("inicio.html", ultimo=m_utlimo)
 
 
 app.register_blueprint(granja_bp, url_prefix="/granjaIoT/")

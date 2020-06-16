@@ -1,92 +1,85 @@
 {% extends "base.html" %}
 {% block head %}
-<meta charset="UTF-8">
-<title>Aplicacion</title>
+    <meta charset="UTF-8">
+    <title>Aplicacion</title>
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css">
 {% endblock %}
 
 {% block content %}
 
-</head>
-<body>
-<div class="container-fluid">
-    <hr>
-    <div class="container-header text-center"><h3><b>Medidas recibidas</b></h3></div>
-    <hr>
-    <div class="row flex-x1-nowrap text-center" style="margin-bottom: 10px;">
-        <div class="offset-lg-3 col-lg-6 col-md-8">
-            <div class="card">
-                <div class="card-header text-white bg-dark"><b>Estado actual de la granja</b></div>
-                <div class="card-body" style="font-size: large;">
-                    <div class="row">
-                        <div class="col-12 text-center">
-                            <b>Animales vivos: 100</b>
+    </head>
+    <body>
+    <div class="container-fluid">
+        <hr>
+        <div class="container-header text-center"><h3><b>Medidas recibidas</b></h3></div>
+        <hr>
+        <div class="row flex-x1-nowrap text-center" style="margin-bottom: 30px;">
+            <div class="offset-lg-2 col-lg-8 col-md-10">
+                <div class="card">
+                    <div class="card-header text-white bg-dark"><b>Estado actual de la granja ({{ ultimo.fecha }})</b>
+                    </div>
+                    <div class="card-body" style="font-size: large;">
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <b>Animales a punto de ser comida para veganos: {{ ultimo.animales }}</b>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <label hidden for="temperatura-value"></label><input hidden id="temperatura-value"
+                                                                                 value="{{ ultimo.temperatura }}">
+                            <label hidden for="humedad-value"></label><input hidden id="humedad-value"
+                                                                             value="{{ ultimo.humedad }}">
+                            <label hidden for="comida-value"></label><input hidden id="comida-value"
+                                                                            value="{{ ultimo.comida }}">
+                            <label hidden for="agua-value"></label><input hidden id="agua-value"
+                                                                          value="{{ ultimo.agua }}">
+                            <div class="col-3">
+                                <div id="chart_div_temp" style="padding-top: 25px;"></div>
+                            </div>
+                            <div class="col-3" style="padding-top: 25px;">
+                                <div id="chart_div2_hum"></div>
+                            </div>
+                            <div class="col-3">
+                                <div id="chart_comida"></div>
+                            </div>
+                            <div class="col-3">
+                                <div id="chart_agua"></div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="offset-2 col-4">
-                            <div id="chart_div_temp"></div>
-                        </div>
-                        <div class="offset-1 col-4">
-                            <div id="chart_div2_hum"></div>
+                </div>
+                <div class="card" style="margin-bottom: 50px; margin-top: 10px;">
+                    <div class="card-header text-white bg-dark"><b>&Uacute;ltimas 10 mediciones</b></div>
+                    <div class="card-body" style="font-size: large;">
+                        <div class="row text-center">
+                            <div class="col-6">
+                                <div class="text-center font-weight-bold" style="font-size: 25px;">Temperatura y humedad</div>
+                                <div id="chart_div_temp_hum_t"></div>
+                            </div>
+                            <div class="col-6">
+                                <div class="text-center font-weight-bold" style="font-size: 25px;">Estado del tanque y del silo</div>
+                                <div id="chart_div2_tanque_silo_t"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-</body>
+    </body>
 {% endblock %}
 
 {% block scripts %}
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-   <script type="text/javascript">
-      google.charts.load('current', {'packages':['gauge']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-
-        let dataTemperatura = google.visualization.arrayToDataTable([
-          ['Label', 'Value'],
-          ['Temperatura', 20]
-        ]);
-        let dataHumedad = google.visualization.arrayToDataTable([
-          ['Label', 'Value'],
-          ['Humedad', 80]
-        ]);
-
-        let optionsTemperatura = {min: -20, max: 60,
-          width: 400, height: 200,
-          redFrom: 50, redTo: 100,
-          yellowFrom:30, yellowTo: 50,
-          minorTicks: 5
-        };
-
-        let optionsHumedad = {min: 0, max: 100,
-          width: 400, height: 200,
-          redFrom: 90, redTo: 100,
-          yellowFrom:60, yellowTo: 90,
-          minorTicks: 5
-        };
-
-        let chart = new google.visualization.Gauge(document.getElementById('chart_div_temp'));
-        let chart2 = new google.visualization.Gauge(document.getElementById('chart_div2_hum'));
-
-        chart.draw(dataTemperatura, optionsTemperatura);
-        chart2.draw(dataHumedad, optionsHumedad);
-
-        setInterval(function() {
-          dataTemperatura.setValue(0, 1, 40 + Math.round(60 * Math.random()));
-          chart.draw(dataTemperatura, optionsTemperatura);
-        }, 1300);
-
-        setInterval(function() {
-          dataHumedad.setValue(0, 1, 40 + Math.round(60 * Math.random()));
-          chart2.draw(dataHumedad, optionsHumedad);
-        }, 1300);
-      }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="/js/graficas.js" type="text/javascript"></script>
 {% endblock %}
+{#setInterval(function() {#}
+{#              dataTemperatura.setValue(0, 1, 40 + Math.round(60 * Math.random()));#}
+{#              chart.draw(dataTemperatura, optionsTemperatura);{#}
+{##}
+{#            setInterval(function() {#}
+{#              dataHumedad.setValue(0, 1, 40 + Math.round(60 * Math.random()));#}
+{#              chart2.draw(dataHumedad, optionsHumedad);}, 1300);#}
