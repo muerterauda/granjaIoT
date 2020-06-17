@@ -78,35 +78,34 @@ function drawChart() {
         },
         success: function (res) {
             res = JSON.parse(res);
-            let data_1 = [['Fecha', 'Temperatura', 'Humedad']], data_2 = [['Fecha', 'Tanque', 'Silo']],
+            let data_1 = [['Fecha', 'Temperatura']], data_2 = [['Fecha', 'Tanque', 'Silo']],
                 data_3 = [['Fecha', 'Bebedero', 'Comedero']];
             let i = res.length - 1;
             for (i; i >= 0; i--) {
                 let m = res[i];
-                data_1.push([m.fecha, m.temperatura, m.humedad]);
+                data_1.push([m.fecha, m.temperatura]);
                 data_2.push([m.fecha, m.agua, m.humedad]);
             }
 
-            let options_1_t = {
+            let options_temp = {
                 legend: {position: 'bottom', textStyle: {fontSize: 16}},
-                height: 300,
-                colors: ['red', 'blue']
-            };
-            let options_2_t = {
-                legend: {position: 'bottom', textStyle: {fontSize: 16}},
-                height: 300,
-                colors: ['blue', 'red']
-            };
-            let options_3_t = {
-                title: 'Estado del comedero y del bebedero',
-                legend: {position: 'bottom'}
+                vAxis: { ticks: [-30,-20,-10,0,10,20,30,40,50,60,70] },
+                lineWidth: 7,
+                hAxis: {textStyle: {fontSize: 12}},
+                chartArea: {width: '90%', height: '80%'},
+                height: 550,
             };
 
-            let chart_1_t = new google.visualization.LineChart(document.getElementById('chart_div_temp_hum_t'));
-            let chart_2_t = new google.visualization.LineChart(document.getElementById('chart_div2_tanque_silo_t'));
+            options_temp["colors"] = ['red'];
 
-            chart_1_t.draw(google.visualization.arrayToDataTable(data_1), options_1_t);
-            chart_2_t.draw(google.visualization.arrayToDataTable(data_2), options_2_t);
+            let options_hum = options_basicas;
+            options_hum["colors"] = ['blue'];
+
+            let chart_1_t = new google.visualization.LineChart(document.getElementById('chart_div_temp_t'));
+            let chart_2_t = new google.visualization.LineChart(document.getElementById('chart_div_hum_t'));
+
+            chart_1_t.draw(google.visualization.arrayToDataTable(data_1), options_temp);
+            chart_2_t.draw(google.visualization.arrayToDataTable(data_2), options_hum);
         },
         error: function (res) {
             alert("Error en la conexión con el servidor.");

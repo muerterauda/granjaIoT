@@ -16,50 +16,97 @@
         <hr>
         <div class="row flex-x1-nowrap text-center" style="margin-bottom: 30px;">
             <div class="offset-lg-2 col-lg-8 col-md-10">
-                <div class="card">
-                    <div class="card-header text-white bg-dark"><b>Estado actual de la granja ({{ ultimo.fecha }})</b>
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
+                           role="tab" aria-controls="nav-home" aria-selected="true">Estado actual</a>
+                        <a class="nav-item nav-link" id="nav-ultimas-tab" data-toggle="tab" href="#nav-ultimas"
+                           role="tab" aria-controls="nav-ultimas" aria-selected="false">Ultimas mediciones</a>
                     </div>
-                    <div class="card-body" style="font-size: large;">
-                        <div class="row">
-                            <div class="col-12 text-center">
-                                <b>Animales a punto de ser comida para veganos: {{ ultimo.animales }}</b>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="card">
+                            <div class="card-header text-white bg-dark"><b>Estado actual de la granja
+                                ({{ ultimo.fecha }})</b>
+                            </div>
+                            <div class="card-body" style="font-size: large;">
+                                <div class="row">
+                                    <div class="col-12 text-center">
+                                        <b>Animales a punto de ser comida para veganos: {{ ultimo.animales }}</b>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <label hidden for="temperatura-value"></label><input hidden id="temperatura-value"
+                                                                                         value="{{ ultimo.temperatura }}">
+                                    <label hidden for="humedad-value"></label><input hidden id="humedad-value"
+                                                                                     value="{{ ultimo.humedad }}">
+                                    <label hidden for="comida-value"></label><input hidden id="comida-value"
+                                                                                    value="{{ ultimo.comida }}">
+                                    <label hidden for="agua-value"></label><input hidden id="agua-value"
+                                                                                  value="{{ ultimo.agua }}">
+                                    <div class="col-3">
+                                        <div id="chart_div_temp" style="padding-top: 25px;"></div>
+                                    </div>
+                                    <div class="col-3" style="padding-top: 25px;">
+                                        <div id="chart_div2_hum"></div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div id="chart_comida"></div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div id="chart_agua"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <label hidden for="temperatura-value"></label><input hidden id="temperatura-value"
-                                                                                 value="{{ ultimo.temperatura }}">
-                            <label hidden for="humedad-value"></label><input hidden id="humedad-value"
-                                                                             value="{{ ultimo.humedad }}">
-                            <label hidden for="comida-value"></label><input hidden id="comida-value"
-                                                                            value="{{ ultimo.comida }}">
-                            <label hidden for="agua-value"></label><input hidden id="agua-value"
-                                                                          value="{{ ultimo.agua }}">
-                            <div class="col-3">
-                                <div id="chart_div_temp" style="padding-top: 25px;"></div>
-                            </div>
-                            <div class="col-3" style="padding-top: 25px;">
-                                <div id="chart_div2_hum"></div>
-                            </div>
-                            <div class="col-3">
-                                <div id="chart_comida"></div>
-                            </div>
-                            <div class="col-3">
-                                <div id="chart_agua"></div>
-                            </div>
-                        </div>
                     </div>
-                </div>
-                <div class="card" style="margin-bottom: 50px; margin-top: 10px;">
-                    <div class="card-header text-white bg-dark"><b>&Uacute;ltimas 10 mediciones</b></div>
-                    <div class="card-body" style="font-size: large;">
-                        <div class="row text-center">
-                            <div class="col-6">
-                                <div class="text-center font-weight-bold" style="font-size: 25px;">Temperatura y humedad</div>
-                                <div id="chart_div_temp_hum_t"></div>
-                            </div>
-                            <div class="col-6">
-                                <div class="text-center font-weight-bold" style="font-size: 25px;">Estado del tanque y del silo</div>
-                                <div id="chart_div2_tanque_silo_t"></div>
+                    <div class="tab-pane fade" id="nav-ultimas" role="tabpanel" aria-labelledby="nav-ultimas-tab">
+                        <div class="card" style="margin-bottom: 50px; margin-top: 10px;">
+                            <div class="card-header text-white bg-dark"><b>&Uacute;ltimas 10 mediciones</b></div>
+                            <div class="card-body" style="font-size: large;">
+                                <nav>
+                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                        <a class="nav-item nav-lin active" id="nav-temp-tab" data-toggle="tab"
+                                           href="#nav-temp"
+                                           role="tab" aria-controls="nav-hum" aria-selected="false">Temperatura</a>
+                                        <a class="nav-item nav-link" id="nav-hum-tab" data-toggle="tab"
+                                           href="#nav-hum"
+                                           role="tab" aria-controls="nav-hum" aria-selected="false">Humedad</a>
+                                    </div>
+                                </nav>
+                                <div class="tab-content" id="nav-tabContent-2">
+                                    <div class="tab-pane fade show active" id="nav-temp" role="tabpanel"
+                                         aria-labelledby="nav-temp-tab">
+                                        <div class="card" style="margin-bottom: 50px; margin-top: 10px;">
+                                            <div class="card-header text-white bg-dark"><b>Temperatura</b></div>
+                                            <div class="card-body" style="font-size: large;">
+                                                <div class="row text-center">
+                                                    <div class="col-12">
+                                                        <div class="text-center font-weight-bold"
+                                                             style="font-size: 25px;"></div>
+                                                        <div id="chart_div_temp_t" style="width: 100%;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="nav-hum" role="tabpanel"
+                                         aria-labelledby="nav-hum-tab">
+                                        <div class="card" style="margin-bottom: 50px; margin-top: 10px;">
+                                            <div class="card-header text-white bg-dark"><b>Humedad</b></div>
+                                            <div class="card-body" style="font-size: large;">
+                                                <div class="row text-center">
+                                                    <div class="col-12">
+                                                        <div class="text-center font-weight-bold"
+                                                             style="font-size: 25px;"></div>
+                                                        <div id="chart_div_hum_t" style="width: 100%;"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -83,3 +130,8 @@
 {#            setInterval(function() {#}
 {#              dataHumedad.setValue(0, 1, 40 + Math.round(60 * Math.random()));#}
 {#              chart2.draw(dataHumedad, optionsHumedad);}, 1300);#}
+{#<div class="col-6">#}
+{#                                        <div class="text-center font-weight-bold" style="font-size: 25px;">Humedad#}
+{#                                        </div>#}
+{#                                        <div id="chart_div2_tanque_silo_t"></div>#}
+{#                                    </div>#}

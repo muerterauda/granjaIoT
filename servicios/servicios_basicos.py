@@ -13,9 +13,11 @@ def envio_parametros():
         humedad = float(request.args.get("humedad"))
         comida_p = float(request.args.get("comida"))
         agua_p = float(request.args.get("agua"))
+        comedero = float(request.args.get("comedero"))
+        bebedero = float(request.args.get("bebedero"))
         animales = float(request.args.get("animales"))
         now = datetime.now(zona_horaria)
-        m = Medicion(temperatura, humedad, comida_p, agua_p, animales, now)
+        m = Medicion(temperatura, humedad, comida_p, agua_p, animales, comedero, bebedero, now)
         insert_medicion(m)
         Response(status=200)
         return Response(status=200)
@@ -31,7 +33,7 @@ def get_utlimas_mediciones():
         if cantidad < 1:
             cantidad = 1
         m = get_last_mediciones(cantidad)
-        m = Medicion.serialize_all(m)
+        m = Medicion.serialize_all(m, True)
         return m, 200
     except Exception as e:
         print(e)
