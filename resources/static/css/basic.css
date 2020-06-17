@@ -1,11 +1,40 @@
-.tab-content>.tab-pane {
-  height: 1px;
-  overflow: hidden;
-  display: block;
- visibility: hidden;
+.tab-content > .tab-pane {
+    height: 1px;
+    overflow: hidden;
+    display: block;
+    visibility: hidden;
 }
-.tab-content>.active {
-  height: auto;
-  overflow: auto;
-  visibility: visible;
+
+.tab-content > .active {
+    height: auto;
+    overflow: initial;
+    visibility: visible;
+}
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+    font-weight: bold !important;
+    color: black;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+
+.nav-tabs .nav-link {
+    color: white;
+    background-color: #343a40;
+    border-color: #343a40;
+    border-bottom-color: white;
+}
+
+.nav-tabs .nav-link.inverted.active, .nav-tabs .nav-item.show .nav-link {
+    font-weight: bold !important;
+    color: white;
+    background-color: #343a40;
+    border-color: #343a40;
+    border-bottom-color: white;
+}
+
+.nav-tabs .nav-link.inverted {
+    color: black;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
 }

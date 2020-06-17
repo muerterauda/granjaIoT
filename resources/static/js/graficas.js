@@ -1,8 +1,8 @@
 google.charts.load('current', {'packages': ['gauge', 'corechart']});
 google.charts.setOnLoadCallback(drawChart);
-var options_comida = {
-    colors: ["#088A08"],
-    series: [parseInt($('#comida-value').val(), 10)],
+var options_silo_tanque = {
+    colors: ["#088B00", "#0000FF"],
+    series: [parseInt($('#comida-value').val(), 10), parseInt($('#agua-value').val(), 10)],
     chart: {
         height: 250,
         type: 'radialBar',
@@ -14,11 +14,11 @@ var options_comida = {
             }
         },
     },
-    labels: ['Comida restante'],
+    labels: ['Comida restante', 'Agua restante'],
 };
-var options_agua = {
-    colors: ["#0000FF"],
-    series: [parseInt($('#agua-value').val(), 10)],
+var options_comedero_bebedero = {
+    colors: ["#088A08", "#00AAFF"],
+    series: [parseInt($('#comedero-value').val(), 10), parseInt($('#bebedero-value').val(), 10)],
     chart: {
         height: 250,
         type: 'radialBar',
@@ -30,22 +30,22 @@ var options_agua = {
             }
         },
     },
-    labels: ['Agua restante'],
+    labels: ['Comida restante', 'Agua restante']
 };
-var chart_agua = new ApexCharts(document.querySelector("#chart_agua"), options_agua);
-chart_agua.render();
-var chart_comida = new ApexCharts(document.querySelector("#chart_comida"), options_comida);
-chart_comida.render();
+var chart_conjunto_1 = new ApexCharts(document.querySelector("#chart_conjunto_1"), options_silo_tanque);
+chart_conjunto_1.render();
+var chart_conjunto_2 = new ApexCharts(document.querySelector("#chart_conjunto_2"), options_comedero_bebedero);
+chart_conjunto_2.render();
 
 function drawChart() {
 
     let dataTemperatura = google.visualization.arrayToDataTable([
         ['Label', 'Value'],
-        ['Temperatura', parseInt($('#temperatura-value').val(), 10)]
+        ['', parseInt($('#temperatura-value').val(), 10)]
     ]);
     let dataHumedad = google.visualization.arrayToDataTable([
         ['Label', 'Value'],
-        ['Humedad', parseInt($('#humedad-value').val(), 10)]
+        ['', parseInt($('#humedad-value').val(), 10)]
     ]);
 
     let optionsTemperatura = {
@@ -78,13 +78,15 @@ function drawChart() {
         },
         success: function (res) {
             res = JSON.parse(res);
-            let data_1 = [['Fecha', 'Temperatura']], data_2 = [['Fecha', 'Tanque', 'Silo']],
-                data_3 = [['Fecha', 'Bebedero', 'Comedero']];
+            let data_1 = [['Fecha', 'Temperatura']], data_2 = [['Fecha', 'Humedad']],
+                data_3 = [['Fecha', 'Silo', 'Tanque']], data_4 = [['Fecha', 'Comedero', 'Bebedero']];
             let i = res.length - 1;
             for (i; i >= 0; i--) {
                 let m = res[i];
                 data_1.push([m.fecha, m.temperatura]);
-                data_2.push([m.fecha, m.agua, m.humedad]);
+                data_2.push([m.fecha, m.humedad]);
+                data_3.push([m.fecha, m.comida, m.agua]);
+                data_4.push([m.fecha, m.comedero, m.bebedero]);
             }
 
             let options_temp = {
@@ -92,20 +94,48 @@ function drawChart() {
                 vAxis: { ticks: [-30,-20,-10,0,10,20,30,40,50,60,70] },
                 lineWidth: 7,
                 hAxis: {textStyle: {fontSize: 12}},
-                chartArea: {width: '90%', height: '80%'},
+                chartArea: {width: '85%', height: '75%'},
                 height: 550,
+                colors: ['red']
             };
 
-            options_temp["colors"] = ['red'];
-
-            let options_hum = options_basicas;
-            options_hum["colors"] = ['blue'];
+            let options_hum = {
+                legend: {position: 'bottom', textStyle: {fontSize: 16}},
+                vAxis: { ticks: [0,10,20,30,40,50,60,70,80,90,100] },
+                lineWidth: 7,
+                hAxis: {textStyle: {fontSize: 12}},
+                chartArea: {width: '85%', height: '75%'},
+                height: 550,
+                colors: ['blue']
+            };
+            let options_silo_tanque = {
+                legend: {position: 'bottom', textStyle: {fontSize: 16}},
+                vAxis: { ticks: [0,10,20,30,40,50,60,70,80,90,100] },
+                lineWidth: 7,
+                hAxis: {textStyle: {fontSize: 12}},
+                chartArea: {width: '85%', height: '75%'},
+                height: 550,
+                colors: ['green','blue']
+            };
+            let options_comedero_bebedero = {
+                legend: {position: 'bottom', textStyle: {fontSize: 16}},
+                vAxis: { ticks: [0,10,20,30,40,50,60,70,80,90,100] },
+                lineWidth: 7,
+                hAxis: {textStyle: {fontSize: 12}},
+                chartArea: {width: '85%', height: '75%'},
+                height: 550,
+                colors: ['green','blue']
+            };
 
             let chart_1_t = new google.visualization.LineChart(document.getElementById('chart_div_temp_t'));
             let chart_2_t = new google.visualization.LineChart(document.getElementById('chart_div_hum_t'));
+            let chart_3_t = new google.visualization.LineChart(document.getElementById('chart_div_silo_tanque_t'));
+            let chart_4_t = new google.visualization.LineChart(document.getElementById('chart_div_com_beb_t'));
 
             chart_1_t.draw(google.visualization.arrayToDataTable(data_1), options_temp);
             chart_2_t.draw(google.visualization.arrayToDataTable(data_2), options_hum);
+            chart_3_t.draw(google.visualization.arrayToDataTable(data_3), options_silo_tanque);
+            chart_4_t.draw(google.visualization.arrayToDataTable(data_4), options_comedero_bebedero);
         },
         error: function (res) {
             alert("Error en la conexión con el servidor.");

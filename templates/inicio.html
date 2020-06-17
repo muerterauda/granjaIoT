@@ -16,92 +16,124 @@
         <hr>
         <div class="row flex-x1-nowrap text-center" style="margin-bottom: 30px;">
             <div class="offset-lg-2 col-lg-8 col-md-10">
-                <nav>
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
-                           role="tab" aria-controls="nav-home" aria-selected="true">Estado actual</a>
-                        <a class="nav-item nav-link" id="nav-ultimas-tab" data-toggle="tab" href="#nav-ultimas"
-                           role="tab" aria-controls="nav-ultimas" aria-selected="false">Ultimas mediciones</a>
-                    </div>
-                </nav>
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                        <div class="card">
-                            <div class="card-header text-white bg-dark"><b>Estado actual de la granja
-                                ({{ ultimo.fecha }})</b>
-                            </div>
-                            <div class="card-body" style="font-size: large;">
-                                <div class="row">
-                                    <div class="col-12 text-center">
-                                        <b>Animales a punto de ser comida para veganos: {{ ultimo.animales }}</b>
-                                    </div>
+                <div>
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link inverted active" id="nav-home-tab"
+                               data-toggle="tab" href="#nav-home"
+                               role="tab" aria-controls="nav-home" aria-selected="true">Estado actual</a>
+                            <a class="nav-item nav-link inverted" id="nav-ultimas-tab" data-toggle="tab"
+                               href="#nav-ultimas"
+                               role="tab" aria-controls="nav-ultimas" aria-selected="false">Ultimas mediciones</a>
+                        </div>
+                    </nav>
+                    <div class="tab-content" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                             aria-labelledby="nav-home-tab">
+                            <div class="card">
+                                <div class="card-header text-white bg-dark"><b>Estado actual de la granja
+                                    ({{ ultimo.fecha }})</b>
                                 </div>
-                                <div class="row">
-                                    <label hidden for="temperatura-value"></label><input hidden id="temperatura-value"
-                                                                                         value="{{ ultimo.temperatura }}">
-                                    <label hidden for="humedad-value"></label><input hidden id="humedad-value"
-                                                                                     value="{{ ultimo.humedad }}">
-                                    <label hidden for="comida-value"></label><input hidden id="comida-value"
-                                                                                    value="{{ ultimo.comida }}">
-                                    <label hidden for="agua-value"></label><input hidden id="agua-value"
-                                                                                  value="{{ ultimo.agua }}">
-                                    <div class="col-3">
-                                        <div id="chart_div_temp" style="padding-top: 25px;"></div>
+                                <div class="card-body" style="font-size: large;">
+                                    <div class="row">
+                                        <div class="col-12 text-center">
+                                            <b>Animales a punto de ser comida para veganos: {{ ultimo.animales }}</b>
+                                        </div>
                                     </div>
-                                    <div class="col-3" style="padding-top: 25px;">
-                                        <div id="chart_div2_hum"></div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div id="chart_comida"></div>
-                                    </div>
-                                    <div class="col-3">
-                                        <div id="chart_agua"></div>
+                                    <div class="row">
+                                        <label hidden for="temperatura-value"></label><input hidden
+                                                                                             id="temperatura-value"
+                                                                                             value="{{ ultimo.temperatura }}">
+                                        <label hidden for="humedad-value"></label><input hidden id="humedad-value"
+                                                                                         value="{{ ultimo.humedad }}">
+                                        <label hidden for="comedero-value"></label><input hidden id="comedero-value"
+                                                                                      value="{{ ultimo.comedero }}">
+                                        <label hidden for="bebedero-value"></label><input hidden id="bebedero-value"
+                                                                                      value="{{ ultimo.bebedero }}">
+                                        <label hidden for="comida-value"></label><input hidden id="comida-value"
+                                                                                        value="{{ ultimo.comida }}">
+                                        <label hidden for="agua-value"></label><input hidden id="agua-value"
+                                                                                      value="{{ ultimo.agua }}">
+                                        <div class="col-3">
+                                            <div id="chart_div_temp" style="padding-top: 30px; height: 251px; padding-left: 25%;"></div>
+                                            <h5><b>Temperatura</b></h5>
+                                        </div>
+                                        <div class="col-3">
+                                            <div id="chart_div2_hum" style="padding-top: 30px; height: 251px; padding-left: 25%;"></div>
+                                            <h5><b>Humedad</b></h5>
+                                        </div>
+                                        <div class="col-3">
+                                            <div id="chart_conjunto_1"></div>
+                                            <h5><b><span style="color: #088B00;">Silo</span> y <span style="color: #0000FF;">tanque</span> (%)</b></h5>
+                                        </div>
+                                        <div class="col-3">
+                                            <div id="chart_conjunto_2"></div>
+                                            <h5><b><span style="color: #088A08;">Comedero</span> y <span style="color: #00AAFF;">bebedero</span> (%)</b></h5>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="tab-pane fade" id="nav-ultimas" role="tabpanel" aria-labelledby="nav-ultimas-tab">
-                        <div class="card" style="margin-bottom: 50px; margin-top: 10px;">
-                            <div class="card-header text-white bg-dark"><b>&Uacute;ltimas 10 mediciones</b></div>
-                            <div class="card-body" style="font-size: large;">
-                                <nav>
-                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                        <a class="nav-item nav-lin active" id="nav-temp-tab" data-toggle="tab"
-                                           href="#nav-temp"
-                                           role="tab" aria-controls="nav-hum" aria-selected="false">Temperatura</a>
-                                        <a class="nav-item nav-link" id="nav-hum-tab" data-toggle="tab"
-                                           href="#nav-hum"
-                                           role="tab" aria-controls="nav-hum" aria-selected="false">Humedad</a>
-                                    </div>
-                                </nav>
-                                <div class="tab-content" id="nav-tabContent-2">
-                                    <div class="tab-pane fade show active" id="nav-temp" role="tabpanel"
-                                         aria-labelledby="nav-temp-tab">
-                                        <div class="card" style="margin-bottom: 50px; margin-top: 10px;">
-                                            <div class="card-header text-white bg-dark"><b>Temperatura</b></div>
-                                            <div class="card-body" style="font-size: large;">
-                                                <div class="row text-center">
-                                                    <div class="col-12">
-                                                        <div class="text-center font-weight-bold"
-                                                             style="font-size: 25px;"></div>
-                                                        <div id="chart_div_temp_t" style="width: 100%;"></div>
-                                                    </div>
+                        <div class="tab-pane fade" id="nav-ultimas" role="tabpanel" aria-labelledby="nav-ultimas-tab">
+                            <div class="card" style="margin-bottom: 50px;">
+                                <div class="card-header text-white bg-dark"><b>&Uacute;ltimas 10 mediciones</b></div>
+                                <div class="card-body">
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="nav-temp-tab" data-toggle="tab"
+                                               href="#nav-temp"
+                                               role="tab" aria-controls="nav-temp" aria-selected="false">Temperatura</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="nav-hum-tab" data-toggle="tab"
+                                               href="#nav-hum"
+                                               role="tab" aria-controls="nav-hum" aria-selected="false">Humedad</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="nav-hum-tab" data-toggle="tab"
+                                               href="#nav-silo_tanque"
+                                               role="tab" aria-controls="nav-silo_tanque" aria-selected="false">Silo y tanque de agua</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="nav-com_beb-tab" data-toggle="tab"
+                                               href="#nav-com_beb"
+                                               role="tab" aria-controls="nav-com_beb" aria-selected="false">Comedero y bebedero</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="nav-tabContent-2">
+                                        <div class="tab-pane fade show active" id="nav-temp" role="tabpanel"
+                                             aria-labelledby="nav-temp-tab">
+                                            <h4 style="margin-top: 5px;"><b>Temperatura</b></h4>
+                                            <div class="row text-center">
+                                                <div class="col-12">
+                                                    <div id="chart_div_temp_t" style="width: 100%;"></div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="nav-hum" role="tabpanel"
-                                         aria-labelledby="nav-hum-tab">
-                                        <div class="card" style="margin-bottom: 50px; margin-top: 10px;">
-                                            <div class="card-header text-white bg-dark"><b>Humedad</b></div>
-                                            <div class="card-body" style="font-size: large;">
-                                                <div class="row text-center">
-                                                    <div class="col-12">
-                                                        <div class="text-center font-weight-bold"
-                                                             style="font-size: 25px;"></div>
-                                                        <div id="chart_div_hum_t" style="width: 100%;"></div>
-                                                    </div>
+                                        <div class="tab-pane fade" id="nav-hum" role="tabpanel"
+                                             aria-labelledby="nav-hum-tab">
+                                            <h4 style="margin-top: 5px;"><b>Humedad</b></h4>
+                                            <div class="row text-center">
+                                                <div class="col-12">
+                                                    <div id="chart_div_hum_t" style="width: 100%;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="nav-silo_tanque" role="tabpanel"
+                                             aria-labelledby="nav-silo_tanque-tab">
+                                            <h4 style="margin-top: 5px;"><b>Silo y tanque de agua</b></h4>
+                                            <div class="row text-center">
+                                                <div class="col-12">
+                                                    <div id="chart_div_silo_tanque_t" style="width: 100%;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane fade" id="nav-com_beb" role="tabpanel"
+                                             aria-labelledby="nav-com_beb-tab">
+                                            <h4 style="margin-top: 5px;"><b>Comedero y bebdero</b></h4>
+                                            <div class="row text-center">
+                                                <div class="col-12">
+                                                    <div id="chart_div_com_beb_t" style="width: 100%;"></div>
                                                 </div>
                                             </div>
                                         </div>
