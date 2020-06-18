@@ -17,7 +17,7 @@ var options_silo_tanque = {
     labels: ['Comida restante', 'Agua restante'],
 };
 var options_comedero_bebedero = {
-    colors: ["#088A08", "#00AAFF"],
+    colors: ["#2bba0b", "#00AAFF"],
     series: [parseInt($('#comedero-value').val(), 10), parseInt($('#bebedero-value').val(), 10)],
     chart: {
         height: 250,
