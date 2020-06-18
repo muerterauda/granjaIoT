@@ -115,7 +115,7 @@ function drawChart() {
                 hAxis: {textStyle: {fontSize: 12}},
                 chartArea: {width: '85%', height: '75%'},
                 height: 550,
-                colors: ['green','blue']
+                colors: ["#088B00", "#0000FF"]
             };
             let options_comedero_bebedero = {
                 legend: {position: 'bottom', textStyle: {fontSize: 16}},
@@ -124,7 +124,7 @@ function drawChart() {
                 hAxis: {textStyle: {fontSize: 12}},
                 chartArea: {width: '85%', height: '75%'},
                 height: 550,
-                colors: ['green','blue']
+                colors: ["#2bba0b", "#00AAFF"]
             };
 
             let chart_1_t = new google.visualization.LineChart(document.getElementById('chart_div_temp_t'));
