@@ -19,8 +19,9 @@ def envio_parametros():
         now = datetime.now(zona_horaria)
         m = Medicion(temperatura, humedad, comida_p, agua_p, animales, comedero, bebedero, now)
         insert_medicion(m)
-        Response(status=200)
-        return Response(status=200)
+        r = Response(status=200)
+        r.headers["Access-Control-Allow-Origin"] = "*"
+        return r
     except Exception as e:
         print(e)
         return Response(status=500)
