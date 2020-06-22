@@ -41,3 +41,4 @@ class MongoException(Exception):
 '''
 
 granja_colection = MongoManager('medidas', True).collection
+estados_com_beb = MongoManager('estado', True).collection
