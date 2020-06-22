@@ -75,13 +75,39 @@
                                                     style="color: #00AAFF;">bebedero</span> (%)</b></h5>
                                         </div>
                                     </div>
-                                    <div class="row" style="margin-top: 20px;">
+                                    <hr style="border-color: black;">
+                                    <h5><b>Control de la alimentaci&oacute;n de los animales</b></h5>
+                                    <hr>
+                                    <div class="row text-center" style="margin-top: 20px;">
                                         <div class="col-6">
-{#                                            {% if med. %}#}
-                                            <button class="btn btn-danger btn-lg">Cerrar comedero</button>
+                                            {% if estado.get('comedero_abierto') %}
+                                                <h6 class="text-success" style="font-size: large"><b>Comedero abierto</b></h6>
+                                            {% else %}
+                                                <h6 class="text-danger" style="font-size: large"><b>Comedero cerrado</b></h6>
+                                            {% endif %}
                                         </div>
                                         <div class="col-6">
-                                            <button class="btn btn-danger btn-lg">Cerrar bebedero</button>
+                                            {% if estado.get('bebedero_abierto') %}
+                                                <h6 class="text-success" style="font-size: large"><b>Bebedero abierto</b></h6>
+                                            {% else %}
+                                                <h6 class="text-danger" style="font-size: large"><b>Bebedero cerrado</b></h6>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-top: 10px;">
+                                        <div class="col-6">
+                                            {% if estado.get('comedero_abierto') %}
+                                                <button class="btn btn-danger btn-lg">Cerrar comedero</button>
+                                            {% else %}
+                                                <button class="btn btn-success btn-lg">Abrir comedero</button>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-6">
+                                            {% if estado.get('bebedero_abierto') %}
+                                                <button class="btn btn-danger btn-lg">Cerrar bebedero</button>
+                                            {% else %}
+                                                <button class="btn btn-success btn-lg">Abrir bebedero</button>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
